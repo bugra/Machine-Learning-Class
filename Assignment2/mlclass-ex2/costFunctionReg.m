@@ -17,11 +17,16 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 hx = sigmoid(X*theta);
-
-
+regTheta = theta(2:end);
+regularizationParameter = ((lambda/(2*m))*sum(regTheta.*regTheta));
+J = (-1/(m))* sum( y .* log(hx) + (1 - y) .* log(1 - hx) ) + regularizationParameter;
 % Gradient Operator
 for jj = 1:size(X,2)
- grad(jj) = (1/m)*sum((hx-y).*X(:,jj) + (lambda*theta));
+     if jj = 1
+         grad(jj) = (1/m)*sum((hx-y).*X(:,jj));
+     else
+         grad(jj) = (1/m)*sum((hx-y).*X(:,jj) + lambda * theta );
+     end
 end
 
 
