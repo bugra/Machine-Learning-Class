@@ -20,9 +20,16 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+% Construct the Hypothesis Function
+hx = sigmoid(X*theta);
+% Cost Function
+J = (-1/(m))* sum( y .* log(hx) + (1 - y) .* log(1 - hx) );
 
 
-
+% Gradient Operator
+for jj = 1:size(X,2)
+ grad(jj) = (1/m)*sum((hx-y).*X(:,jj));
+end
 
 
 
