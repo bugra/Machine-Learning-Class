@@ -10,9 +10,9 @@ g = zeros(size(z));
 %               vector or scalar).
 rowLength = size(z,1);
 columnLength = size(z,2);
-ii = 1: (rowLength*columnLength);
+for ii = 1: (rowLength*columnLength)
 g(ii) = 1 / (1 + exp(-z(ii)));
-
+end
 
 
 % =============================================================
