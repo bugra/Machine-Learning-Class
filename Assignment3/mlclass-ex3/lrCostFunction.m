@@ -41,18 +41,11 @@ regTheta = theta(2:end);
 regularizationParameter = ((lambda/(2*m))*sum(regTheta.*regTheta));
 J = (-1/(m))* sum( y .* log(hx) + (1 - y) .* log(1 - hx) ) + regularizationParameter;
 % Gradient Operator
-for jj = 1:size(X,2)
-       grad(jj) = (1/m)*sum((hx-y).*X(:,jj)) ;
-end
-for kk = 1:size(X,2)
-   regularizationFactor = (1/m)*(lambda.*theta);
-end
+jj = 1:size(X,2)
+grad(jj) = (1/m)*sum((hx-y).*X(:,jj)) ;
+regularizationFactor = (1/m)*(lambda.*theta);
 regularizationFactor(1) = 0;
 grad = grad + regularizationFactor;
-
-%for jj = 1:size(X,2)
- %grad(jj) = (1/m)*sum((hx-y).*X(:,jj));
-%end
 
 
 
