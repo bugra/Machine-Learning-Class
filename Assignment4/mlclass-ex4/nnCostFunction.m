@@ -68,7 +68,7 @@ a2 = sigmoid(z2);
 a2 =[ones(size(a2,1),1) a2];
 z3 = a2*(Theta2)';
 a3 = sigmoid(z3);
-hypothesis = a3;
+
 tempo = zeros(size(y,1), num_labels);
  for kk = 1: size(y,1)
        for mm = 1: num_labels
@@ -104,14 +104,20 @@ regularizationPart = (lambda / (2*m))*(firstPart+secondPart);
 J = J + regularizationPart;
 
 % Backpropagation 
-zz = 1: size(y,1);
-delta3 = (a3(zz,:) == y(zz,:));
+% Output Layer
+delta3 = a3 - y;
+% Hidden Layer
+delta2 = (delta3*Theta2) .* sigmoidGradient([ones(size(z2,1),1) z2]);
+delta2 = delta2';
+delta2 = delta2(2:end,:);
+Theta1_grad = delta2 * (a1); 
+Theta2_grad = delta3' * (a2);
+Theta1_grad = (1/m) .* Theta1_grad;
+Theta2_grad = (1/m) .* Theta2_grad;
 
 
 
-
-
-
+end
 
 
 
