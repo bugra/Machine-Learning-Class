@@ -84,7 +84,20 @@ end
 
  J = sum(sum(temp));
 
-regularizationPart = (lambda / (2*m))*sum(sum(Theta1.^Theta1))*sum(sum(Theta2.^Theta2));
+
+for ii = 1: size(Theta1,1)
+        for jj = 2:size(Theta1,2)
+                firstPart(ii,jj) = Theta1(ii,jj).^2;
+         end	
+end
+for ii = 1: size(Theta2,1)
+        for jj = 2: size(Theta2,2)
+                secondPart(ii,jj) = Theta2(ii,jj).^2;
+         end	
+end
+firstPart = sum(sum(firstPart));
+secondPart = sum(sum(secondPart));
+regularizationPart = (lambda / (2*m))*(firstPart+secondPart);
 J = J + regularizationPart;
 
 
