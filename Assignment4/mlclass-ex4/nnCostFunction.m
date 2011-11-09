@@ -100,7 +100,7 @@ secondPart = sum(sum(secondPart));
 regularizationPart = (lambda / (2*m))*(firstPart+secondPart);
 J = J + regularizationPart;
 
-
+% Backpropagation 
 
 
 
