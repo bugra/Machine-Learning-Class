@@ -61,21 +61,31 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-hx = sigmoid(X*theta);
-regTheta = theta(2:end);
-regularizationParameter = ((lambda/(2*m))*sum(regTheta.*regTheta));
-J = (-1/(m))* sum( y .* log(hx) + (1 - y) .* log(1 - hx) ) + regularizationParameter;
-% Gradient Operator
-for jj = 1:size(X,2)
-       grad(jj) = (1/m)*sum((hx-y).*X(:,jj)) ;
-end
-for kk = 1:size(X,2)
-   regularizationFactor = (1/m)*(lambda.*theta);
-end
-regularizationFactor(1) = 0;
-grad = grad + regularizationFactor;
+X = [ones(m, 1) X];
+firstLayer = sigmoid(X*(Theta1'));
+firstLayer =[ones(size(firstLayer,1),1) firstLayer];
+secondLayer = sigmoid(firstLayer*((Theta2)'));
 
+tempo = zeros(size(y,1), num_labels);
+ for kk = 1: size(y,1)
+       for mm = 1: num_labels
+                if y(kk) == mm
+                	tempo(kk,mm) = 1;
+                end
+      end
+end
+                	 
+y = tempo;
+for ii = 1:m,
+     for jj =1: num_labels,
+        temp(ii,jj) = (-1/(m))* sum((y(ii,jj) .*log(secondLayer(ii,jj))) + ((1 - y(ii,jj)) .* log(1 - (secondLayer(ii,jj)))));
+     end
+end
 
+ J = sum(sum(temp));
+
+regularizationPart = (lambda / (2*m))*sum(sum(Theta1.^Theta1))*sum(sum(Theta2.^Theta2));
+J = J + regularizationPart;
 
 
 
