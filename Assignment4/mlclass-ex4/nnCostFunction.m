@@ -61,7 +61,19 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-
+hx = sigmoid(X*theta);
+regTheta = theta(2:end);
+regularizationParameter = ((lambda/(2*m))*sum(regTheta.*regTheta));
+J = (-1/(m))* sum( y .* log(hx) + (1 - y) .* log(1 - hx) ) + regularizationParameter;
+% Gradient Operator
+for jj = 1:size(X,2)
+       grad(jj) = (1/m)*sum((hx-y).*X(:,jj)) ;
+end
+for kk = 1:size(X,2)
+   regularizationFactor = (1/m)*(lambda.*theta);
+end
+regularizationFactor(1) = 0;
+grad = grad + regularizationFactor;
 
 
 
