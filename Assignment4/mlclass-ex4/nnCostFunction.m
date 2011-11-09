@@ -62,10 +62,13 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 X = [ones(m, 1) X];
-firstLayer = sigmoid(X*(Theta1'));
-firstLayer =[ones(size(firstLayer,1),1) firstLayer];
-secondLayer = sigmoid(firstLayer*((Theta2)'));
-
+a1 = X;
+z2  = (X*(Theta1'));
+a2 = sigmoid(z2);
+a2 =[ones(size(a2,1),1) a2];
+z3 = a2*(Theta2)';
+a3 = sigmoid(z3);
+hypothesis = a3;
 tempo = zeros(size(y,1), num_labels);
  for kk = 1: size(y,1)
        for mm = 1: num_labels
@@ -78,7 +81,7 @@ end
 y = tempo;
 for ii = 1:m,
      for jj =1: num_labels,
-        temp(ii,jj) = (-1/(m))* sum((y(ii,jj) .*log(secondLayer(ii,jj))) + ((1 - y(ii,jj)) .* log(1 - (secondLayer(ii,jj)))));
+        temp(ii,jj) = (-1/(m))* sum((y(ii,jj) .*log(a3(ii,jj))) + ((1 - y(ii,jj)) .* log(1 - (a3(ii,jj)))));
      end
 end
 
@@ -101,7 +104,8 @@ regularizationPart = (lambda / (2*m))*(firstPart+secondPart);
 J = J + regularizationPart;
 
 % Backpropagation 
-
+zz = 1: size(y,1);
+delta3 = (a3(zz,:) == y(zz,:));
 
 
 
