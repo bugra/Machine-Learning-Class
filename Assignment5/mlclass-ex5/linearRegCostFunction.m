@@ -20,10 +20,24 @@ grad = zeros(size(theta));
 %
 
 
-
-
-
-
+% Cost Function
+J = (1/(2 * m))*(((X*theta)-y)')*((X*theta)-y);
+% For regularization, ignore the first element of Theta
+regTheta = theta(2:end);
+regularizationParameter = ((lambda/(2*m))*sum(regTheta.*regTheta));
+% Regularized Cost Function
+J = J + regularizationParameter;
+%% Gradient Operator
+%jj = 1:size(X,2)
+%grad(jj) = (1/m)*sum((X*theta-y).*X(:,jj)) ;
+%
+%kk = 1:size(X,2)
+%regularizationFactor = (1/m)*(lambda.*theta);
+%regularizationFactor(1) = 0;
+%grad = grad + regularizationFactor;
+%
+%
+%
 
 
 
