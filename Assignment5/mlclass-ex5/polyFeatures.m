@@ -15,10 +15,10 @@ X_poly = zeros(numel(X), p);
 %
 % 
 % Polynomial Features
-m = size(X,1);
-for i = 1:m
+
+for i = 1:numel(X)
        for j = 1:p
-	X_poly(i, j) = X(i).^p;
+               X_poly(i, j) = X(i)^j;
        end
 end
 
