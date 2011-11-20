@@ -15,6 +15,11 @@ sim = 0;
 %               sigma
 %
 %
+difference = x1 - x2;
+squareDifference = difference.^2;
+numerator = sum(squareDifference);
+denominator = 2.*(sigma^2);
+sim = exp(-numerator/denominator);
 
 
 
