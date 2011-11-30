@@ -20,13 +20,12 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
-dist = zeros(size(centroids,1),1);
 for i = 1:length(X)
-    for j = 1:size(centroids,1)
-        dist(j) = sum((abs((X(i,:) - centroids(j,:)))) .^ 2) ;
+    for j = 1:length(centroids)
+        dist(j) = (norm(X(i, 1) - centroids(j, 1))  + (X(i, 2) - centroids(j, 2)) ) .^ 2 ;
     end
-    [~,I] = min(dist);
-    idx(i) = I;
+    [C,I] = min(dist)
+    
 end
 
 
