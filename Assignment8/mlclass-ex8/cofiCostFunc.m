@@ -41,6 +41,8 @@ Theta_grad = zeros(size(Theta));
 %
 temp = ((X * Theta') - Y).^2;
 J = (1/2) * sum(sum(R.*temp));
+J = J + lambda*sum(sum(Theta.^2))/2; % regularized term of theta.
+J = J + lambda*sum(sum(X.^2))/2; % regularized term of x.
 % calculating gradient of x.
 for i=1:num_movies
   idx = find(R(i, :)==1); % users that have rated movie i.
